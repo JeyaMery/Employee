@@ -46,3 +46,4 @@ Route::middleware(['auth:api', 'verified'])->group(function () {
      */
     Route::apiResource('/employee', EmployeeController::class);
 });
+

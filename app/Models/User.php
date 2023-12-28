@@ -3,15 +3,16 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles; // Add this line
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
+    use HasApiTokens, HasFactory, HasRoles, Notifiable;
     public const AUTH_TOKEN = "AuthToken";
 
     /**
@@ -49,8 +50,9 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    /*public function sendPasswordResetNotification($token)
+    public function sendPasswordResetNotification($token)
     {
-        $this->notify(new ResetPassword($token, $this->email));
-    }*/
+        $this->notify(new ResetPassword($token));
+    }
+
 }
